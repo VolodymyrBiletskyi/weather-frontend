@@ -2,11 +2,16 @@ import Card from "./Card";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { getWeather } from "../../Api";
 import WeatherIcon from "../WeatherIcon";
+import type { Coords } from "../../types";
 
-export default function HourlyForecast() {
+type HourlyForecastProps = {
+  coords: Coords;
+};
+
+export default function HourlyForecast({ coords }: HourlyForecastProps) {
   const { data, isLoading, error } = useSuspenseQuery({
-    queryKey: ["weather"],
-    queryFn: () => getWeather({ lat: 50, lon: 16 }),
+    queryKey: ["weather", coords],
+    queryFn: () => getWeather({ lat: coords.lat, lon: coords.lon }),
   });
 
   if (isLoading) return <div>Loading...</div>;
