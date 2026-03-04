@@ -1,4 +1,4 @@
-import { useGetWeather } from "../../hooks/UseGetWeather";
+import { UseGetWeather } from "../../hooks/UseGetWeather";
 import Card from "./Card";
 import WeatherIcon from "../WeatherIcon";
 import type { Coords } from "../../types";
@@ -8,7 +8,7 @@ type CurrentWeatherProps = {
 };
 
 export default function CurrentWeather({ coords }: CurrentWeatherProps) {
-  const { data, isLoading, error } = useGetWeather({
+  const { data, isLoading, error } = UseGetWeather({
     lat: coords.lat,
     lon: coords.lon,
   });
