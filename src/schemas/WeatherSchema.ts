@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-export function weatherSchema() {
-  return z.object({
+export const WeatherSchema =z.object({
+   
     lat: z.number(),
     lon: z.number(),
     timezone: z.string(),
@@ -99,4 +99,3 @@ export function weatherSchema() {
       })
     ),
   });
-}

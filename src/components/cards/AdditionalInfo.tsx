@@ -1,13 +1,12 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
 import Card from "./Card";
-import { getWeather } from "../../Api";
-import Sunrise from "/src/assets/sunrise.svg?react";
-import Cloud from "/src/assets/cloud.svg?react";
-import Sunset from "/src/assets/sunset.svg?react";
-import Wind from "/src/assets/wind.svg?react";
-import Uv from "/src/assets/uv.svg?react";
-import Pressure from "/src/assets/pressure.svg?react";
-import UpArrow from "/src/assets/up-arrow.svg?react";
+import { useGetWeather } from "../../hooks/UseGetWeather";
+import Sunrise from "../../assets/sunrise.svg?react";
+import Cloud from "../../assets/cloud.svg?react";
+import Sunset from "../../assets/sunset.svg?react";
+import Wind from "../../assets/wind.svg?react";
+import Uv from "../../assets/uv.svg?react";
+import Pressure from "../../assets/pressure.svg?react";
+import UpArrow from "../../assets/up-arrow.svg?react";
 import type { Coords } from "../../types";
 
 type AdditionalInfoProps = {
@@ -15,9 +14,9 @@ type AdditionalInfoProps = {
 };
 
 export function AdditionalInfo({ coords }: AdditionalInfoProps) {
-  const { data, isLoading, error } = useSuspenseQuery({
-    queryKey: ["weather", coords],
-    queryFn: () => getWeather({ lat: coords.lat, lon: coords.lon }),
+  const { data, isLoading, error } = useGetWeather({
+    lat: coords.lat,
+    lon: coords.lon,
   });
 
   if (isLoading) return <div>Loading...</div>;
@@ -36,7 +35,7 @@ export function AdditionalInfo({ coords }: AdditionalInfoProps) {
             <Icon className="size-8 invert" />
           </div>
           <span>
-            <FormatComponent value={value} number={data.current[value]} />
+            <FormatComponent value={value} number={data?.current[value] ?? 0} />
           </span>
         </div>
       ))}
