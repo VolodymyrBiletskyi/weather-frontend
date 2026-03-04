@@ -1,5 +1,5 @@
 import Card from "./Card";
-import { useGetWeather } from "../../hooks/UseGetWeather";
+import { UseGetWeather } from "../../hooks/UseGetWeather";
 import Sunrise from "../../assets/sunrise.svg?react";
 import Cloud from "../../assets/cloud.svg?react";
 import Sunset from "../../assets/sunset.svg?react";
@@ -14,7 +14,7 @@ type AdditionalInfoProps = {
 };
 
 export function AdditionalInfo({ coords }: AdditionalInfoProps) {
-  const { data, isLoading, error } = useGetWeather({
+  const { data, isLoading, error } = UseGetWeather({
     lat: coords.lat,
     lon: coords.lon,
   });

@@ -7,16 +7,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { useState, useEffect } from "react";
-import { useGetGeocode } from "@/hooks/useGetGeocode";
+import { useEffect } from "react";
+import { useGetGeocode } from "@/hooks/UseGetGeocode";
 
 type LocationDropdownProps = {
   setCoords: (coords: Coords) => void;
+  coords: Coords;
+
+  location: string;
+  setLocation: (value: string) => void;
 };
 
-export default function LocationDropdown({ setCoords }: LocationDropdownProps) {
-  const [location, setLocation] = useState("Berlin");
-  const { data } = useGetGeocode(location);
+export default function LocationDropdown({
+  setCoords,
+  location,
+  setLocation,
+}: LocationDropdownProps) {
+  const { data } = useGetGeocode(location, { enabled: location !== "custom" });
   console.log("hook location", data);
 
   useEffect(() => {
@@ -33,7 +40,13 @@ export default function LocationDropdown({ setCoords }: LocationDropdownProps) {
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Select city" />
       </SelectTrigger>
-      <SelectContent position="popper" className="z-1002">
+      <SelectContent position="popper" className="z-1001">
+        {location === "custom" && (
+          <SelectGroup>
+            <SelectItem value="custom"> Custom</SelectItem>
+          </SelectGroup>
+        )}
+
         <SelectGroup>
           {locations.map((city) => (
             <SelectItem key={city} value={city}>

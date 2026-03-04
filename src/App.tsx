@@ -6,19 +6,38 @@ import Map from "./components/Map";
 import { useState } from "react";
 import type { Coords } from "./types";
 import LocationDropdown from "./components/dropdowns/LocationDropdown";
+import MapTypeDropdown from "./components/dropdowns/MapTypeDropdown";
 
 function App() {
   const [coords, setCoords] = useState<Coords>({ lat: 52, lon: 16 });
+  const [mapType, setMapType] = useState("clouds_new");
+  const [location, setLocation] = useState("Berlin");
 
   const onMapClick = (lat: number, lon: number) => {
     console.log("map-click", lat, lon);
     setCoords({ lat, lon });
+    setLocation("custom");
   };
 
   return (
     <div className="flex flex-col gap-8">
-      <LocationDropdown setCoords={setCoords} />
-      <Map coords={coords} onMapClick={onMapClick} />
+      <div className="flex gap-8">
+        <div className="flex gap-4">
+          <h1 className="text-2xl font-semibold">Location:</h1>
+          <LocationDropdown
+            coords={coords}
+            setCoords={setCoords}
+            location={location}
+            setLocation={setLocation}
+          />
+        </div>
+        <div className="flex gap-4">
+          <h1 className="text-2xl font-semibold">Map Type:</h1>
+          <MapTypeDropdown mapType={mapType} setMapType={setMapType} />
+        </div>
+      </div>
+
+      <Map coords={coords} onMapClick={onMapClick} mapType={mapType} />
       <CurrentWeather coords={coords} />
       <HourlyForecast coords={coords} />
       <DailyForecast coords={coords} />
