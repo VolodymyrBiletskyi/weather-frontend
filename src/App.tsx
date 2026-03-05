@@ -7,6 +7,7 @@ import { useState } from "react";
 import type { Coords } from "./types";
 import LocationDropdown from "./components/dropdowns/LocationDropdown";
 import MapTypeDropdown from "./components/dropdowns/MapTypeDropdown";
+import MapLegend from "./components/MapLegend";
 
 function App() {
   const [coords, setCoords] = useState<Coords>({ lat: 52, lon: 16 });
@@ -37,7 +38,10 @@ function App() {
         </div>
       </div>
 
-      <Map coords={coords} onMapClick={onMapClick} mapType={mapType} />
+      <div className="relative">
+        <Map coords={coords} onMapClick={onMapClick} mapType={mapType} />
+        <MapLegend mapType={mapType} />
+      </div>
       <CurrentWeather coords={coords} />
       <HourlyForecast coords={coords} />
       <DailyForecast coords={coords} />
