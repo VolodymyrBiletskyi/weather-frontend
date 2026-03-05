@@ -12,7 +12,8 @@ export default function CurrentWeather({ coords }: CurrentWeatherProps) {
     lat: coords.lat,
     lon: coords.lon,
   });
-
+  console.log(isLoading);
+  console.log(error);
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error...</div>;
 

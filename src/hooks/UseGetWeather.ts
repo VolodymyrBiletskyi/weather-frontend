@@ -12,6 +12,7 @@ export  const UseGetWeather = ({lat, lon}:{lat:number, lon:number}) => {
   const data = await res.json()
   console.log(data)
   return WeatherSchema.parse(data);
+  console.log(data)
   }})
 }
 
