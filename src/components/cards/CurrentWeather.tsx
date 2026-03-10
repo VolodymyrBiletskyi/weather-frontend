@@ -8,13 +8,12 @@ type CurrentWeatherProps = {
 };
 
 export default function CurrentWeather({ coords }: CurrentWeatherProps) {
-  const { data, isLoading, error } = UseGetWeather({
+  const { data, error } = UseGetWeather({
     lat: coords.lat,
     lon: coords.lon,
   });
-  console.log(isLoading);
   console.log(error);
-  if (isLoading) return <div>Loading...</div>;
+
   if (error) return <div>Error...</div>;
 
   return (

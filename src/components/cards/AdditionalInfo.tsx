@@ -14,12 +14,11 @@ type AdditionalInfoProps = {
 };
 
 export function AdditionalInfo({ coords }: AdditionalInfoProps) {
-  const { data, isLoading, error } = UseGetWeather({
+  const { data, error } = UseGetWeather({
     lat: coords.lat,
     lon: coords.lon,
   });
 
-  if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error...</div>;
 
   return (

@@ -12,6 +12,5 @@ export const useGetGeocode = (location:string,options?:{enabled:boolean}) => {
   const data = await res.json()
   console.log(data)
   return GeocodeSchema.parse(data);
-  console.log(data)
   }})
 }
