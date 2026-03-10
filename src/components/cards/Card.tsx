@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { type PropsWithChildren } from "react";
 
 type CardProps = PropsWithChildren & {
@@ -13,7 +14,14 @@ export default function Card({
   return (
     <div className="p-4 rounded-xl bg-linear-to-br from-card bg-card shadow-md flex flex-col gap-4">
       <h2 className="text-2xl font-semibold">{title}</h2>
-      <div className={childrenClassname}>{children}</div>
+      <div
+        className={clsx(
+          childrenClassname,
+          "animate-[fade-in_1s_ease-out_forwards]",
+        )}
+      >
+        {children}
+      </div>
     </div>
   );
 }
