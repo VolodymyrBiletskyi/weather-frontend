@@ -2,17 +2,36 @@ import { UseGetAirPollution } from "@/hooks/UseGetAirPollution";
 import type { Coords } from "@/types";
 import Card from "./cards/Card";
 import { Slider } from "./ui/slider";
-import { Suspense } from "react";
+import { Suspense, type Dispatch, type SetStateAction } from "react";
 import clsx from "clsx";
-
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
+import Information from "../assets/info.svg?react";
+import Chevron from "../assets/chevronLeft.svg?react";
+import { SidePanelSkeleton } from "./skeletons/SidePanelSkeleton";
 type SidePanelProps = {
   coords: Coords;
+  isSidePanelOpen: boolean;
+  setIsSidePanelOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 export default function SidePanel(props: SidePanelProps) {
+  const { isSidePanelOpen, setIsSidePanelOpen } = props;
   return (
-    <div className="fixed top-0 right-0 h-screen w-80 shadow-md bg-sidebar z-1001 py-8 px-4 overflow-y-scroll ">
-      <Suspense>
+    <div
+      className={clsx(
+        "fixed top-0 right-0 h-screen w-80 shadow-md bg-sidebar z-1001 py-8 px-4 overflow-y-scroll transition-transform duration-300",
+        isSidePanelOpen ? "translate-x-0" : "translate-x-full",
+      )}
+    >
+      <button onClick={() => setIsSidePanelOpen(false)}>
+        <Chevron className="size-8 invert -ml-2"></Chevron>
+      </button>
+      <Suspense fallback={<SidePanelSkeleton />}>
         <AirPollution {...props} />
       </Suspense>
     </div>
@@ -29,6 +48,22 @@ function AirPollution({ coords }: SidePanelProps) {
     <div className=" flex flex-col gap-4">
       <h1 className="text-2xl font-semibold">Air Pollution</h1>
       <h1 className="text-5xl font-semibold">{data.list[0].main.aqi}</h1>
+      <div className="flex items-center gap-2">
+        <h1 className="text-2xl font-semibold">AQI</h1>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Information className="size-4 invert max-w-xs" />
+            </TooltipTrigger>
+            <TooltipContent className="z-2000">
+              <p>
+                Air Quality Index. Possible values: 1, 2, 3, 4, 5. Where 1 =
+                Good, 2 = Fair, 3 = Moderate, 4 = Poor, 5 = Very Poor.{" "}
+              </p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
       {Object.entries(data.list[0].components).map(([key, value]) => {
         const pollutant =
           airPollutionRanges[
@@ -63,7 +98,22 @@ function AirPollution({ coords }: SidePanelProps) {
             className="hover:scale-105 transition-transform duration-300 from-sidebar-accent to-sidebar-accent/60 gap-0"
           >
             <div className="flex justify-between">
-              <span className="text-lg font-bold capitalize">{key}</span>
+              <div className="flex items-center gap-2">
+                <span className="text-lg font-bold capitalize">{key}</span>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Information className="size-4 invert max-w-xs" />
+                    </TooltipTrigger>
+                    <TooltipContent className="z-2000">
+                      <p>
+                        Concentration of{" "}
+                        {AirPollutantNames[key.toUpperCase() as AirPollutant]}
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
               <span className="text-lg font-semibold ">{value}</span>
             </div>
             <Slider min={0} max={max} value={[value]} disabled />
@@ -178,4 +228,14 @@ const airPollutionRanges: AirPollutionRanges = {
     Poor: { min: 0.1, max: 100 },
     "Very Poor": { min: 0.1, max: 100 },
   },
+};
+const AirPollutantNames: Record<AirPollutant, string> = {
+  SO2: "Sulfur Dioxide",
+  NO2: "Nitrogen Dioxide",
+  PM10: "Particulate Matter 10µm",
+  PM2_5: "Particulate Matter 2.5µm",
+  O3: "Ozone",
+  CO: "Carbon Monoxide",
+  NH3: "Ammonia",
+  NO: "Nitrogen Monoxide",
 };
