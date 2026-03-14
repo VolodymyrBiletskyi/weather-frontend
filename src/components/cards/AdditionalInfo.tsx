@@ -24,7 +24,7 @@ export function AdditionalInfo({ coords }: AdditionalInfoProps) {
   return (
     <Card
       title="Additional Weather Info"
-      childrenClassname="flex flex-col gap-8 "
+      childrenClassname="grid grid-cols-1 md:grid-cols-2 gap-8 "
     >
       Additional Info
       {rows.map(({ label, value, Icon }) => (
