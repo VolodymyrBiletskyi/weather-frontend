@@ -18,7 +18,7 @@ export default function Map({ coords, onMapClick, mapType }: MapProps) {
     <MapContainer
       center={[lat, lon]}
       zoom={13}
-      style={{ height: "1000px", width: "700" }}
+      style={{ height: "100%", width: "100%" }}
     >
       <MapClick onMapClick={onMapClick} coords={coords} />
       <MapTilerBaseLayer />

@@ -5,7 +5,8 @@ export default function CurrentSkeleton() {
   return (
     <Card
       title="Current weather"
-      childrenClassname="flex flex-col items-center gap-6"
+      childrenClassname="flex flex-col items-center gap-6 2xl:justify-between"
+      className="md:pb-13"
     >
       <div className="flex flex-col gap-2 items-center">
         <Skeleton className="w-30 h-15" />
