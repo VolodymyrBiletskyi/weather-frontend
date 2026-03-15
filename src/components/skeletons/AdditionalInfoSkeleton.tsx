@@ -5,7 +5,7 @@ export default function AdditionalInfoSkeleton() {
   return (
     <Card
       title="Additional Weather Info"
-      childrenClassname="flex flex-col gap-8 "
+      childrenClassname="grid grid-cols-1 md:grid-cols-2 gap-8 "
     >
       Additional Info
       {Array.from({ length: 6 }).map((_, index) => (

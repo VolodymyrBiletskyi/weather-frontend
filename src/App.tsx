@@ -15,12 +15,13 @@ import AdditionalInfoSkeleton from "./components/skeletons/AdditionalInfoSkeleto
 import SidePanel from "./components/SidePanel";
 import Hamburger from "./assets/hamburger.svg?react";
 import { MobileHeader } from "./components/MobileHeader";
+import { LightDarkToggle } from "./components/LightDarkToggle";
 
 function App() {
   const [coords, setCoords] = useState<Coords>({ lat: 52, lon: 16 });
   const [mapType, setMapType] = useState("clouds_new");
   const [location, setLocation] = useState("Berlin");
-  const [isSidePanelOpen, setIsSidePanelOpen] = useState(true);
+  const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
 
   const onMapClick = (lat: number, lon: number) => {
     console.log("map-click", lat, lon);
@@ -31,7 +32,7 @@ function App() {
   return (
     <>
       <MobileHeader setIsSidePanelOpen={setIsSidePanelOpen} />
-      <div className="flex flex-col gap-8 p-8  lg:w-[calc(100dvw-var(--sidebar-width))] 2xl:h-screen">
+      <div className="flex flex-col gap-8 pt-4 p-8 xs:pt-8  lg:w-[calc(100dvw-var(--sidebar-width))] 2xl:h-screen 2xl:min-h-[1120px]">
         <div className="flex flex-col xs:flex-row xs:gap-8">
           <div className="flex flex-col md:flex-row gap-2 md:gap-4">
             <h1 className="text-2xl font-semibold">Location:</h1>
@@ -48,12 +49,17 @@ function App() {
             </h1>
             <MapTypeDropdown mapType={mapType} setMapType={setMapType} />
           </div>
-          <button
-            onClick={() => setIsSidePanelOpen(true)}
-            className="hidden xs:block"
-          >
-            <Hamburger className="size-6 invert ml-auto lg:hidden"></Hamburger>
-          </button>
+          <div className="ml-auto flex gap-4 items-center">
+            <div className="hidden xs:block">
+              <LightDarkToggle />
+            </div>
+            <button
+              onClick={() => setIsSidePanelOpen(true)}
+              className="hidden xs:block"
+            >
+              <Hamburger className="size-6  lg:hidden"></Hamburger>
+            </button>
+          </div>
         </div>
         <div className="grid grid-cols-1 2xl:flex-1 min-h-0 md:grid-cols-2 2xl:grid-cols-4 2xl:grid-rows-4 gap-4">
           <div className="relative h-120 2xl:h-auto col-span-1 md:col-span-2 2xl:col-span-4 2xl:row-span-2 order-1">

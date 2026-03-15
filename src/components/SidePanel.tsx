@@ -34,7 +34,7 @@ export default function SidePanel(props: SidePanelProps) {
       )}
     >
       <button onClick={() => setIsSidePanelOpen(false)}>
-        <Chevron className="size-8 invert -ml-2 lg:hidden"></Chevron>
+        <Chevron className="size-8  -ml-2 lg:hidden"></Chevron>
       </button>
       <Suspense fallback={<SidePanelSkeleton />}>
         <AirPollution {...props} />
@@ -58,7 +58,7 @@ function AirPollution({ coords }: SidePanelProps) {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Information className="size-4 invert max-w-xs" />
+              <Information className="size-4  max-w-xs" />
             </TooltipTrigger>
             <TooltipContent className="z-2000">
               <p>
@@ -108,7 +108,7 @@ function AirPollution({ coords }: SidePanelProps) {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Information className="size-4 invert max-w-xs" />
+                      <Information className="size-4  max-w-xs" />
                     </TooltipTrigger>
                     <TooltipContent className="z-2000">
                       <p>
