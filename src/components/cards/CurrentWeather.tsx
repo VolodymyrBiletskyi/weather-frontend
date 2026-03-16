@@ -12,7 +12,6 @@ export default function CurrentWeather({ coords }: CurrentWeatherProps) {
     lat: coords.lat,
     lon: coords.lon,
   });
-  console.log(error);
 
   if (error) return <div>Error...</div>;
 
@@ -26,13 +25,8 @@ export default function CurrentWeather({ coords }: CurrentWeatherProps) {
         <h2 className="text-6xl font-semibold text-center">
           {Math.round(data?.current.temp ?? 0)}°C
         </h2>
-        <WeatherIcon
-          src={data?.current.weather[0].icon ?? ""}
-          className="size-14"
-        />
-        <h3 className="capitalize text-xl">
-          {data?.current.weather[0].description}
-        </h3>
+        <WeatherIcon src={data?.current.weather[0].icon ?? ""} className="size-14" />
+        <h3 className="capitalize text-xl">{data?.current.weather[0].description}</h3>
       </div>
       <div className="flex flex-col pag-2">
         <p className="text-xl text-center">Local Time:</p>

@@ -10,7 +10,7 @@ export  const UseGetWeather = ({lat, lon}:{lat:number, lon:number}) => {
       throw new Error(`OpenWeather error:${res.status}`); 
     }
   const data = await res.json()
-  console.log(data)
+
   return WeatherSchema.parse(data);
   }})
 }
