@@ -10,7 +10,6 @@ export const useGetGeocode = (location:string,options?:{enabled:boolean}) => {
       throw new Error(`OpenWeather error:${res.status}`); 
     }
   const data = await res.json()
-  console.log(data)
   return GeocodeSchema.parse(data);
   }})
 }
